@@ -25,7 +25,7 @@ export default function UserForm(){
         <form onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input id="name" type="text" value={inputName} onChange={handleChange} required/>
-            <input type="submit" value="Start Quiz"/>
+            <input id="submit" type="submit" value="Start Quiz"/>
         </form>
     );
 

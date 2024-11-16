@@ -1,12 +1,12 @@
 import React from "react";
 
 
-export default function Question({ question, options, onAnswer }){
+export default function Question({ questionIndex ,question, options, onAnswer }){
 
 
     return (
         <div>
-            <h2>{question}</h2>
+            <h2>{questionIndex}. {question}</h2>
             {options.map((option) => {
                 return (
                     <button key={option} onClick={() => {

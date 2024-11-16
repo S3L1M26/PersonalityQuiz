@@ -4,9 +4,7 @@ export default function Header(){
     
     return (
         <div>
-            <div>
-                <h1>Which Element Are You?</h1>
-            </div>
+            <h1>Which Dragon Ball Character Are You?</h1>
             <div className="link-container">
                 <Link to="/">Home</Link>
             </div>
