@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx"
 import UserForm from './components/UserForm.jsx';
 import Question from './components/Question.jsx';
 import Results from './components/Results.jsx';
-import { UserProvider } from './components/UserContext.jsx';
+import { UserContext } from './components/UserContext.jsx';
 import './App.css'
 
 export default function App() {
-
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const { currentQuestion, setCurrentQuestion } = useContext(UserContext);
   const [answers, setAnswers] = useState([]);
   const [element, setElement] = useState("");
   const [artwork, setArtwork] = useState(null);
@@ -56,22 +55,19 @@ export default function App() {
       if (currentQuestion === questions.length) {
         const selectedElement = determineElement(answers);
         setElement(selectedElement);
-        fetchArtwork(keywords[selectedElement]);
+        setArtwork(keywords[selectedElement]);
       }
-    },
-    [currentQuestion]
-  );
+    }, [currentQuestion]);
 
   return (
     <div>
-      <Header/>
-      <UserProvider>
+      <Header/>     
         <Routes>
           <Route path="/" element={<UserForm/>}/>
           <Route
             path="/quiz"
             element={
-              currentQuestion < questions.lenght ? (
+              currentQuestion < questions.length ? (
                 <Question 
                   question={questions[currentQuestion].question}
                   options={questions[currentQuestion].options}
@@ -83,7 +79,6 @@ export default function App() {
             }
           />
         </Routes>
-      </UserProvider>
     </div>
   );
 }

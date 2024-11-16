@@ -2,7 +2,15 @@ import React, { useContext } from "react";
 import { UserContext } from "./UserContext";
 
 export default function Results({ element, artwork }) {
-    const { name } = useContext(UserContext);
+    const { name, setCurrentQuestion, setName } = useContext(UserContext);
+
+    function restartQuiz(){
+        setName("");
+        setCurrentQuestion(0);
+        window.history.pushState({}, '', '/');
+        const navEvent = new PopStateEvent("popstate");
+        window.dispatchEvent(navEvent);
+    }
 
     return (
         <div>
@@ -19,6 +27,7 @@ export default function Results({ element, artwork }) {
             ) : (
                 <p>No artwork found.</p>
             )}
+            <button onClick={restartQuiz}>Restart Quiz</button>
         </div>
     );
 }
