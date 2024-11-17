@@ -1,12 +1,20 @@
 /* General Styles */
-html {
-  font-family: Arial, sans-serif;
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
-  min-height: 100vh;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/64d9fe5b-3f8b-4980-b987-36cd43fe314f/dg9hc2n-30e65e10-016a-4e29-a641-d6c990f93dbd.png/v1/fill/w_1199,h_667,q_70,strp/namek_by_devinda2099_dg9hc2n-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzEyIiwicGF0aCI6IlwvZlwvNjRkOWZlNWItM2Y4Yi00OTgwLWI5ODctMzZjZDQzZmUzMTRmXC9kZzloYzJuLTMwZTY1ZTEwLTAxNmEtNGUyOS1hNjQxLWQ2Yzk5MGY5M2RiZC5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.kislrS7Id07DReS81HC9iSQnwW9186aLFeCHPrZbm_Y");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
 }
 
 /* Header Styles */
@@ -115,4 +123,9 @@ button:hover {
 
 .link-container a:hover {
   color: #0056b3;
+}
+
+img {
+  max-width: 15%;
+  max-height: 15%;
 }

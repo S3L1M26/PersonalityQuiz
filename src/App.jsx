@@ -8,128 +8,11 @@ import { UserContext } from './components/UserContext.jsx';
 import './App.css'
 
 export default function App() {
-  const apiUrl = "https://www.dragonball-api.com/api";
-  const { currentQuestion, setCurrentQuestion } = useContext(UserContext);
+  const apiUrl = "https://dragonball-api.com/api/characters/";
+  const { currentQuestion, setCurrentQuestion, questions, elements, characterId } = useContext(UserContext);
   const [answers, setAnswers] = useState([]);
   const [element, setElement] = useState("");
-  const [artwork, setArtwork] = useState(null);
-
-  const questions = [
-    {
-      question: "What's your favorite way to spend your time?",
-      options: ["Training 💪", "Meditating 🧘", "Exploring 🌍", "Relaxing 😌"],
-    },
-    {
-      question: "Which food do you prefer?",
-      options: ["Meat 🍖", "Fruits 🍎", "Sweets 🍰", "Anything, as long as it's a lot! 🍽️"],
-    },
-    {
-      question: "What motivates you the most?",
-      options: ["Protecting loved ones 🛡️", "Becoming stronger ⚡", "Seeking knowledge 📖", "Adventure 🗺️"],
-    },
-    {
-      question: "How do you react in a crisis?",
-      options: ["Take charge 🦸", "Stay calm and think 🤔", "Rely on teamwork 🤝", "Face it head-on 🥊"],
-    },
-    {
-      question: "What's your favorite type of weather?",
-      options: ["Sunny ☀️", "Stormy 🌩️", "Calm and breezy 🌬️", "Snowy ❄️"],
-    },
-    {
-      question: "How would your friends describe you?",
-      options: ["Loyal 🐾", "Wise 🦉", "Energetic ⚡", "Caring ❤️"],
-    },
-    {
-      question: "Which of these best represents your fighting style?",
-      options: ["Brute strength 🥊", "Speed 🌀", "Strategy 🎯", "Balance ⚖️"],
-    },
-    {
-      question: "What would you rather do in your free time?",
-      options: ["Train your body 💪", "Read a book 📚", "Enjoy nature 🌳", "Spend time with friends 👫"],
-    },
-    {
-      question: "What's your biggest fear?",
-      options: ["Losing a loved one 💔", "Failure 🚫", "Being alone 🙇", "Missing a challenge ⚔️"],
-    },
-    {
-      question: "What role do you take in a group?",
-      options: ["Leader 👑", "Support 🛠️", "Strategist 🧠", "Wildcard 🎲"],
-    },
-  ];
-
-  const keywords = {
-    Goku: "training",
-    Vegeta: "strength",
-    Gohan: "knowledge",
-    Piccolo: "meditating",
-    Krillin: "support",
-    Bulma: "strategy",
-    Trunks: "adventure",
-    Goten: "energetic",
-  };
-
-  const elements = {
-    // Pregunta 1: What's your favorite way to spend your time?
-    "Training 💪": "Goku",
-    "Meditating 🧘": "Piccolo",
-    "Exploring 🌍": "Trunks",
-    "Relaxing 😌": "Bulma",
-  
-    // Pregunta 2: Which food do you prefer?
-    "Meat 🍖": "Goku",
-    "Fruits 🍎": "Piccolo",
-    "Sweets 🍰": "Goten",
-    "Anything, as long as it's a lot! 🍽️": "Vegeta",
-  
-    // Pregunta 3: What motivates you the most?
-    "Protecting loved ones 🛡️": "Gohan",
-    "Becoming stronger ⚡": "Vegeta",
-    "Seeking knowledge 📖": "Gohan",
-    "Adventure 🗺️": "Trunks",
-  
-    // Pregunta 4: How do you react in a crisis?
-    "Take charge 🦸": "Vegeta",
-    "Stay calm and think 🤔": "Piccolo",
-    "Rely on teamwork 🤝": "Krillin",
-    "Face it head-on 🥊": "Goku",
-  
-    // Pregunta 5: What's your favorite type of weather?
-    "Sunny ☀️": "Goku",
-    "Stormy 🌩️": "Vegeta",
-    "Calm and breezy 🌬️": "Piccolo",
-    "Snowy ❄️": "Trunks",
-  
-    // Pregunta 6: How would your friends describe you?
-    "Loyal 🐾": "Krillin",
-    "Wise 🦉": "Piccolo",
-    "Energetic ⚡": "Goten",
-    "Caring ❤️": "Gohan",
-  
-    // Pregunta 7: Which of these best represents your fighting style?
-    "Brute strength 🥊": "Goku",
-    "Speed 🌀": "Trunks",
-    "Strategy 🎯": "Bulma",
-    "Balance ⚖️": "Gohan",
-  
-    // Pregunta 8: What would you rather do in your free time?
-    "Train your body 💪": "Vegeta",
-    "Read a book 📚": "Gohan",
-    "Enjoy nature 🌳": "Piccolo",
-    "Spend time with friends 👫": "Krillin",
-  
-    // Pregunta 9: What's your biggest fear?
-    "Losing a loved one 💔": "Gohan",
-    "Failure 🚫": "Vegeta",
-    "Being alone 🙇": "Piccolo",
-    "Missing a challenge ⚔️": "Goku",
-  
-    // Pregunta 10: What role do you take in a group?
-    "Leader 👑": "Goku",
-    "Support 🛠️": "Krillin",
-    "Strategist 🧠": "Bulma",
-    "Wildcard 🎲": "Goten",
-  };
-  
+  const [characterData, setCharacterData] = useState({});
 
   function handleAnswer(answer){
     setAnswers([...answers, answer]);
@@ -148,11 +31,25 @@ export default function App() {
 
   useEffect(
     function () {
-      if (currentQuestion === questions.length) {
-        const selectedElement = determineElement(answers);
-        setElement(selectedElement);
-        setArtwork(keywords[selectedElement]);
+      async function fetchData() {
+        try {
+          if (currentQuestion === questions.length) {
+            const selectedElement = determineElement(answers);
+            console.log(selectedElement);
+            console.log(characterId[selectedElement])
+            setElement(selectedElement);
+            console.log(`${apiUrl}${characterId[selectedElement]}`);
+            const response = await fetch(`${apiUrl}${characterId[selectedElement]}`);
+            const data = await response.json();
+            setCharacterData(data);
+            console.log(data);
+          }
+        } catch (error) {
+          console.log("Error fetching data: ", error);
+        }
       }
+
+      fetchData();
     }, [currentQuestion]);
 
   return (
@@ -171,7 +68,7 @@ export default function App() {
                   onAnswer={handleAnswer}
                 />
               ) : (
-                <Results element={element} artwork={artwork}/>
+                <Results element={element} artwork={characterData}/>
               )
             }
           />

@@ -14,15 +14,15 @@ export default function Results({ element, artwork }) {
 
     return (
         <div>
-            <p>
-                <strong>{name}</strong>, your character is: {element}
-            </p>
+            <h2>
+                {name}, your character is: {element}
+            </h2>
             {artwork ? (
                 <div>
-                    <h2>{artwork.title}</h2>
-                    <img src={artwork.primaryImage} alt={artwork.title}/>
-                    <p>{artwork.artistDisplayName}</p>
-                    <p>{artwork.objectDate}</p>
+                    <h2>{artwork.name}</h2>
+                    <img src={artwork.image} alt={artwork.description}/>
+                    <p><strong>Race: </strong>{artwork.race}</p>
+                    <p><strong>Ki: </strong>{artwork.maxKi}</p>
                 </div>
             ) : (
                 <p>No artwork found.</p>
